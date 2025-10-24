@@ -6,7 +6,7 @@ nano ~/.config/hypr/hyprland.conf
 nano ~/.config/kitty/kitty.conf   background_opacity 0.40
 
  
- 
+sudo bootctl update 
  
  
 /usr/lib/polkit-kde-authentication-agent-1 
