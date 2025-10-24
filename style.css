@@ -1,0 +1,206 @@
+/* Ana Waybar penceresi - Tam şeffaflık */
+window#waybar {
+    background-color: rgba(0, 0, 0, 0); /* R, G, B, Alfa (0 = Tam Şeffaf) */
+    color: #ffffff;                    /* Varsayılan metin rengi: Beyaz */
+    font-family: sans-serif;           /* İsteğe bağlı font */
+    font-size: 14px;
+    border: none;
+    box-shadow: none;
+}
+
+/* Sol, Orta ve Sağ modül grupları - Bunların da arka planını şeffaf yapın */
+.modules-left,
+.modules-center,
+.modules-right {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+}
+
+/* Tüm modüller için ortak stil - Beyaz metin */
+#workspaces button,
+#window,
+#clock,
+#battery,
+#cpu,
+#memory,
+#network,
+#pulseaudio,
+#temperature,
+#custom-greeting,
+#tray {
+    color: #ffffff; /* Beyaz metin */
+    background-color: rgba(0, 0, 0, 0); /* Tam şeffaf arka plan */
+    padding: 0 8px; /* Modüller arasında bir miktar boşluk */
+    margin: 0;
+    border: none;
+    box-shadow: none;
+}
+
+/* Çalışma Alanları (Workspaces) modülü için özel stiller */
+#workspaces button {
+    border-radius: 0;
+    margin: 0 2px;
+}
+
+/* Aktif Çalışma Alanı */
+#workspaces button.active {
+    color: #00ffff; /* Aktif çalışma alanı için farklı bir renk (örneğin Cam Göbeği) */
+    /* İsteğe bağlı: Altında beyaz bir çizgi */
+    box-shadow: inset 0 -2px #ffffff; 
+}
+
+/* Üzerine gelme (hover) efekti */
+#workspaces button:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* Hafif beyaz şeffaflık */
+    border: none;
+}
+
+/* Sistem Tepsisi (Tray) öğeleri */
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+}
+
+
+
+
+/* Ana Waybar penceresi - Tam şeffaflık */
+window#waybar {
+    background-color: rgba(0, 0, 0, 0); /* R, G, B, Alfa (0 = Tam Şeffaf) */
+    color: #ffffff;                    /* Varsayılan metin rengi: Beyaz */
+    font-family: sans-serif;           /* İsteğe bağlı font */
+    font-size: 14px;
+    border: none;
+    box-shadow: none;
+}
+
+/* Sol, Orta ve Sağ modül grupları - Bunların da arka planını şeffaf yapın */
+.modules-left,
+.modules-center,
+.modules-right {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+}
+
+/* Tüm modüller için ortak stil - Beyaz metin */
+#workspaces button,
+#window,
+#clock,
+#battery,
+#cpu,
+#memory,
+#network,
+#pulseaudio,
+#temperature,
+#custom-greeting,
+#tray {
+    color: #ffffff; /* Beyaz metin */
+    background-color: rgba(0, 0, 0, 0); /* Tam şeffaf arka plan */
+    padding: 0 8px; /* Modüller arasında bir miktar boşluk */
+    margin: 0;
+    border: none;
+    box-shadow: none;
+}
+
+/* Çalışma Alanları (Workspaces) modülü için özel stiller */
+#workspaces button {
+    border-radius: 0;
+    margin: 0 2px;
+}
+
+/* Aktif Çalışma Alanı */
+#workspaces button.active {
+    color: #00ffff; /* Aktif çalışma alanı için farklı bir renk (örneğin Cam Göbeği) */
+    /* İsteğe bağlı: Altında beyaz bir çizgi */
+    box-shadow: inset 0 -2px #ffffff; 
+}
+
+/* Üzerine gelme (hover) efekti */
+#workspaces button:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* Hafif beyaz şeffaflık */
+    border: none;
+}
+
+/* Sistem Tepsisi (Tray) öğeleri */
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+}
+
+
+
+
+/* Ana Waybar penceresi - Tam şeffaflık */
+window#waybar {
+    background-color: rgba(0, 0, 0, 0); /* R, G, B, Alfa (0 = Tam Şeffaf) */
+    color: #ffffff;                    /* Varsayılan metin rengi: Beyaz */
+    font-family: sans-serif;           /* İsteğe bağlı font */
+    font-size: 14px;
+    border: none;
+    box-shadow: none;
+}
+
+/* Sol, Orta ve Sağ modül grupları - Bunların da arka planını şeffaf yapın */
+.modules-left,
+.modules-center,
+.modules-right {
+    background-color: transparent;
+    border: none;
+    padding: 0;
+}
+
+/* Tüm modüller için ortak stil - Beyaz metin */
+#workspaces button,
+#window,
+#clock,
+#battery,
+#cpu,
+#memory,
+#network,
+#pulseaudio,
+#temperature,
+#custom-greeting,
+#tray {
+    color: #ffffff; /* Beyaz metin */
+    background-color: rgba(0, 0, 0, 0); /* Tam şeffaf arka plan */
+    padding: 0 8px; /* Modüller arasında bir miktar boşluk */
+    margin: 0;
+    border: none;
+    box-shadow: none;
+}
+
+/* Çalışma Alanları (Workspaces) modülü için özel stiller */
+#workspaces button {
+    border-radius: 0;
+    margin: 0 2px;
+}
+
+/* Aktif Çalışma Alanı */
+#workspaces button.active {
+    color: #00ffff; /* Aktif çalışma alanı için farklı bir renk (örneğin Cam Göbeği) */
+    /* İsteğe bağlı: Altında beyaz bir çizgi */
+    box-shadow: inset 0 -2px #ffffff; 
+}
+
+/* Üzerine gelme (hover) efekti */
+#workspaces button:hover {
+    background-color: rgba(255, 255, 255, 0.2); /* Hafif beyaz şeffaflık */
+    border: none;
+}
+
+/* Sistem Tepsisi (Tray) öğeleri */
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+}

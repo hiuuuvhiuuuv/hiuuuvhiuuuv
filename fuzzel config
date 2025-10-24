@@ -1,0 +1,13 @@
+ nano ~/.config/fuzzel/fuzzel.ini
+
+
+ mkdir -p ~/.config/fuzzel
+ echo "[colors]" > ~/.config/fuzzel/fuzzel.ini
+ echo "background = 00000000" >> ~/.config/fuzzel/fuzzel.ini
+ echo "border = 00000000" >> ~/.config/fuzzel/fuzzel.ini
+ echo "text = ffffffff" >> ~/.config/fuzzel/fuzzel.ini
+ echo "prompt = ffffffff" >> ~/.config/fuzzel/fuzzel.ini
+ echo "input = ffffffff" >> ~/.config/fuzzel/fuzzel.ini
+ echo "selection = 88888833" >> ~/.config/fuzzel/fuzzel.ini
+ echo "selection-text = 000000ff" >> ~/.config/fuzzel/fuzzel.ini
+

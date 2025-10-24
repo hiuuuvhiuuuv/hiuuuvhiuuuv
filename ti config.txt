@@ -1,0 +1,256 @@
+      
+sudo nano /etc/pacman.conf   ParallelDownloads = 8    monitor=DP-2,preferred,auto,1
+
+nano ~/.config/hypr/hyprland.conf
+
+nano ~/.config/kitty/kitty.conf   background_opacity 0.40
+
+ 
+ 
+ 
+ 
+/usr/lib/polkit-kde-authentication-agent-1 
+/usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+
+
+
+ mkdir -p ~/.local/share/applications
+ nano ~/.local/share/applications/archlinux.desktop
+ [Desktop Entry]
+Name=archlinux-ti
+Exec=/home/kullanici_adiniz/bin/empty_app.sh
+Icon=applications-other
+Type=Application
+Categories=Utility;
+ 
+
+ 
+ mkdir -p ~/.config/waybar
+ mkdir -p ~/.config/waybar/style.css
+ nano ~/.config/waybar/style.css
+ nano ~/.config/waybar/config
+ 
+ 
+ 
+
+ mkdir -p ~/.local/share/applications
+ nano ~/.local/share/applications/zen-browser.desktop
+ [Desktop Entry]
+Version=1.0
+Name=ti
+Comment=Zen Browser
+Exec=flatpak run app.zen_browser.zen %U
+Icon=app.zen_browser.zen
+Terminal=false
+Type=Application
+Categories=Network;WebBrowser;
+StartupNotify=true
+
+update-desktop-database ~/.local/share/applications/
+
+
+
+nano ~/.bashrc
+PS1='ti  live everyday like your last... '
+
+
+
+flatpak list --app
+flatpak run
+
+flatpak update
+flatpak repair --user
+
+
+sudo nano /boot/loader/entries/arch.conf
+title   ti
+linux   /vmlinuz-linux
+initrd  /initramfs-linux.img
+options root=UUID=eb934bc7-6ae0-4428-8fbe-19f1b4f06b3e rw quiet loglevel=0
+
+
+
+
+p4fbk9ek2be6sc32        --GJgocWxGpb2          A:GJ99p9S$eN~DC                   fullscreen
+
+
+yay -Sua         sudo pacman -Sc  yay -Yc   sudo pacman -Qtdq     sudo pacman -Rns $(pacman -Qtdq)
+
+
+
+sudo pacman -S pacman-contrib
+sudo paccache -r
+
+
+  SSD
+
+sudo systemctl enable fstrim.timer
+sudo systemctl start fstrim.service
+sudo systemctl status fstrim.timer
+sudo fstrim -v /
+
+
+
+Networks
+sudo pacman -S networkmanager network-manager-applet
+sudo systemctl enable NetworkManager
+sudo systemctl start NetworkManager
+
+sudo systemctl stop iwd
+sudo systemctl disable iwd
+
+exec-once = nm-applet --indicator
+
+
+
+
+brightnessctl
+sudo usermod -aG video ti
+brightnessctl set 10%-
+brightnessctl set +10%
+
+
+YAY 
+sudo pacman -S --needed git base-devel
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
+yay --version
+
+
+
+
+sudo pacman -S mesa lib32-mesa vulkan-intel intel-media-driver intel-media-sdk
+sudo pacman -S xorg-xwayland
+sudo pacman -S xdg-desktop-portal-hyprland
+sudo pacman -S xdg-desktop-portal-gtk
+sudo pacman -S hyprland-qt-support
+sudo pacman -S hyprutils hyprgraphics
+sudo pacman -S hyprland-qtutils
+sudo pacman -S nwg-displays nwg-look
+sudo pacman -S pavucontrol pipewire-alsa pipewire-audio
+sudo pacman -S mako polkit-gnome
+sudo pacman -S archlinux-keyring intel-ucode
+sudo pacman -S flatpak 
+sudo pacman -S qt6-wayland qt5-wayland
+sudo pacman -S bluez bluez-utils blueman 
+sudo pacman -S brightnessctl swaylock partitionmanager
+sudo pacman -S qt5ct qt6ct
+sudo pacman -S gtk3 gtk4
+sudo pacman -S linux-firmware
+
+
+
+repeat_delay = 500
+repeat_rate = 300
+numlock_by_default = true
+
+
+
+
+yay -S gtk
+yay -S waypaper swaybg
+yay -S rose-pine-cursor
+yay -S rose-pine-hyprcursor
+yay -S preload
+yay -S zen-browser-bin
+yay -S google-chrome 
+
+ 
+gnu mixxx pinta juk metindzenleyici usb shotwell bleachbit videolar flatseal indeks  karakutu
+ 
+ 
+ VENTOY
+     
+ mkdir AUR
+ cd AUR
+ git clone https://aur.archlinux.org/ventoy-bin.git
+ cd ventoy-bin
+ ls
+ less PKGBUILD
+ makepkg -sic
+     
+     
+ 
+ 
+ DUVAR      
+ sudo pacman -S ufw
+ sudo ufw default deny incoming
+ sudo ufw default allow outgoing
+ sudo ufw allow ssh
+ sudo ufw enable
+ sudo ufw status
+    
+
+ 
+ 
+ FWUPD   
+ sudo pacman -S fwupd
+ sudo pacman -S fwupd-efi
+ 
+ sudo mkdir -p /boot/efi/EFI
+ sudo systemctl restart fwupd.service
+ 
+ fwupdmgr get-devices
+ fwupdmgr refresh
+ fwupdmgr get-updates
+ fwupdmgr update
+ 
+ 
+       
+ 
+ WİFİ
+       
+ iwctl
+ device list
+ station wlan0 scan
+ station wlan0 get-networks  = wifi isim   ve enter
+ şifre  giriş  enter
+ exit
+       
+       
+     
+     WİRT MANAGER
+      
+      sudo pacman -S virt-manager qemu-desktop dnsmasq iptables-nft
+      vim /etc/libvirt/libvirtd.conf
+      unix_sock_group = 'libvirt'
+      unix_sock_rw_perms = '0770'
+      
+      usermod -aG libvirt ti
+      
+      vim /etc/libvirt/qemu.conf
+      user = "ti"
+      group = "ti"
+      
+      i yazım  w kaydet veçıkış
+      
+      sudo systemctl enable --now libvirtd
+  
+
+
+      Performance Powersave
+ sudo  pacman -S cpupower
+
+ sudo cpupower frequency-set-g ondemand
+ sudo cpupower frequency-set-g poversave
+ sudo cpupower frequency-set-g performance
+
+ sudo nano /etc/default/cpupower
+ GOVERNOR='ondemand'
+
+ sudo systemctl enable --now cpupower.service
+ sudo systemctl start cpupower.service
+ cpupower frequency-info
+
+  
+
+ Thermal
+ sudo pacman -S thermald
+ sudo systemctl enable --now thermald
+
+    
+
+
+
+

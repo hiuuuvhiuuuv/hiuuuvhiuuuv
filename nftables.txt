@@ -1,0 +1,84 @@
+sudo pacman -S nftables
+sudo systemctl enable nftables
+
+
+sudo nano /etc/nftables.conf
+
+#!/usr/bin/nft -f
+
+flush ruleset
+
+table inet filter {
+    chain input {
+        type filter hook input priority 0; policy drop;
+        
+        # Loopback interface
+        iifname "lo" accept
+        
+        # Invalid paketleri engelle
+        ct state invalid drop
+        
+        # Mevcut bağlantıları kabul et
+        ct state established,related accept
+        
+        # ICMP (ping) - DDoS korumalı
+        ip protocol icmp icmp type { echo-request, echo-reply, destination-unreachable, time-exceeded } limit rate 1/second burst 5 packets accept
+        
+        # SSH - Brute-force korumalı
+        tcp dport 22 ct state new limit rate 3/minute burst 5 packets accept
+        
+        # HTTP/HTTPS (web sunucu için)
+        # tcp dport {80, 443} ct state new limit rate 10/minute accept
+        
+        # Port tarama koruması
+        ct state new limit rate 15/second burst 30 packets accept
+        
+        # Loglama (isteğe bağlı)
+        # ct state new log prefix "nft-new: " level info
+        # ct state invalid log prefix "nft-invalid: " level info
+    }
+    
+    chain forward {
+        type filter hook forward priority 0; policy drop;
+    }
+    
+    chain output {
+        type filter hook output priority 0; policy accept;
+    }
+}
+
+
+
+
+
+# Kuralları yükle
+sudo nft -f /etc/nftables.conf
+
+# Servisi başlat
+sudo systemctl start nftables
+sudo systemctl enable nftables
+
+# Kuralları kontrol et
+sudo nft list ruleset
+
+
+
+
+# test:
+ping localhost  # Çalışmalı
+ping google.com # Çalışmalı
+
+# testi:
+ssh localhost    # Çalışmalı
+
+# port:
+sudo nft list ruleset
+
+
+
+# sistem loglarını 
+sudo journalctl -f
+
+# ağ bağlantılarını
+ss -tunlp
+

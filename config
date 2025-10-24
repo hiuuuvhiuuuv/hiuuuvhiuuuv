@@ -1,0 +1,106 @@
+mkdir -p ~/.config/waybar
+nano ~/.config/waybar/config
+
+
+
+
+{
+    "layer": "top",
+    "position": "top",
+    "modularity": true,
+    "modules-left": [
+        "hyprland/workspaces", // Veya Sway kullanıyorsanız "sway/workspaces"
+        "hyprland/window"      // Veya Sway kullanıyorsanız "sway/window"
+    ],
+    "modules-center": [
+        "custom/greeting"
+    ],
+    "modules-right": [
+        "pulseaudio",
+        "network",
+        "cpu",
+        "memory",
+        "temperature",
+        "battery",
+        "clock",
+        "tray"
+    ],
+
+    // Modül ayarları
+    "hyprland/workspaces": {
+        "format": "{icon}",
+        "format-icons": {
+            "default": "",
+            "active": ""
+        },
+        "on-scroll-up": "hyprctl dispatch workspace -1",
+        "on-scroll-down": "hyprctl dispatch workspace +1",
+        "persistent-workspaces": {
+            "1": [],
+            "2": [],
+            "3": []
+        }
+    },
+
+    "hyprland/window": {
+        "format": "{}",
+        "max-length": 50
+    },
+
+    "pulseaudio": {
+        "format": "{volume}% {icon}",
+        "format-muted": " Muted",
+        "format-icons": {
+            "default": ["", ""]
+        },
+        "scroll-step": 5
+    },
+
+    "network": {
+        "format-wifi": " {essid} ({signal}%)",
+        "format-ethernet": " {ipaddr}/{cidr}",
+        "format-alt": " {bandwidthUpBytes} | {bandwidthDownBytes}",
+        "format-disconnected": "⚠ Disconnected"
+    },
+
+    "cpu": {
+        "format": " {usage}%",
+        "tooltip": true
+    },
+
+    "memory": {
+        "format": " {percentage}%"
+    },
+
+    "temperature": {
+        "format": " {temperatureC}°C",
+        "critical-threshold": 80
+    },
+
+    "battery": {
+        "format": "{capacity}% {icon}",
+        "format-charging": " {capacity}% {icon}",
+        "format-plugged": " {capacity}% {icon}",
+        "format-icons": {
+            "default": ["", "", "", "", ""]
+        },
+        "states": {
+            "warning": 30,
+            "critical": 15
+        }
+    },
+
+    "clock": {
+        "format": " {:%H:%M}",
+        "format-alt": " {:%d.%m.%Y}"
+    },
+
+    "custom/greeting": {
+        "format": "ti live everyday like your last"
+    },
+
+    "tray": {
+        "icon-size": 18,
+        "spacing": 5
+    }
+}

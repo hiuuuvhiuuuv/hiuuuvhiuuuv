@@ -1,0 +1,210 @@
+sudo nano /usr/local/bin/ti
+
+çalıştır   ---      sudo chmod +x /usr/local/bin/ti
+
+
+
+#!/bin/bash
+
+# ti - Akıllı Pacman Wrapper
+# Sade metin tabanlı, emoji yok
+
+# Sudo gerektirmeyen komutlar
+NO_SUDO_COMMANDS=("-Q" "-Qs" "-Qi" "-Ql" "-Qk" "-F" "-Ss" "-Si" "-Fl" "--help" "--version" "-h")
+
+# Özel mesajlar
+print_action() {
+    case "$1" in
+        "-Syu"|"-Suy"|"-Su"|"-Sy")
+            echo "Sistem güncelleniyor..."
+            ;;
+        "-S")
+            if [ $# -ge 2 ]; then
+                echo "Paket(ler) kuruluyor: ${*:2}"
+            fi
+            ;;
+        "-R"|"-Rns"|"-Rs"|"-Rc"|"-Rsc")
+            if [ $# -ge 2 ]; then
+                echo "Paket(ler) kaldırılıyor: ${*:2}"
+                if [[ "$1" == "-Rns" || "$1" == "-Rsc" ]]; then
+                    echo "UYARI: Bağımlılıklar da kaldırılacak"
+                fi
+            fi
+            ;;
+        "-Ss")
+            if [ $# -ge 2 ]; then
+                echo "Paket aranıyor: ${*:2}"
+            else
+                echo "Tüm paketler listeleniyor..."
+            fi
+            ;;
+        "-Sc"|"-Scc")
+            echo "Paket önbelleği temizleniyor..."
+            ;;
+        "-U")
+            if [ $# -ge 2 ]; then
+                echo "Yerel paket kuruluyor: ${*:2}"
+            fi
+            ;;
+        "-Q"|"-Qe"|"-Qm")
+            echo "Kurulu paketler listeleniyor..."
+            ;;
+    esac
+}
+
+# Yardım mesajı
+show_help() {
+    echo "ti - Akıllı Paket Yöneticisi"
+    echo "============================"
+    echo ""
+    echo "Kullanım: ti [seçenekler] [paketler]"
+    echo ""
+    echo "KURULUM:"
+    echo "  ti -S <paket>          # Paket kur"
+    echo "  ti -Syu                # Sistem güncelle"
+    echo "  ti -U <paket-dosyası>  # Yerel paket kur"
+    echo ""
+    echo "KALDIRMA:"
+    echo "  ti -R <paket>          # Paket kaldır"
+    echo "  ti -Rns <paket>        # Paket ve bağımlılıkları kaldır"
+    echo ""
+    echo "BILGI:"
+    echo "  ti -Ss <paket>         # Paket ara"
+    echo "  ti -Qi <paket>         # Paket bilgisi"
+    echo "  ti -Q                  # Kurulu paketleri listele"
+    echo "  ti -Qs <paket>         # Kurulu paketleri ara"
+    echo ""
+    echo "BAKIM:"
+    echo "  ti -Sc                 # Önbelleği temizle"
+    echo "  ti -Scc                # Tüm önbelleği temizle"
+    echo ""
+    echo "YARDIM:"
+    echo "  ti --help              # Bu yardımı göster"
+    echo "  ti --version           # Versiyon bilgisi"
+    echo ""
+}
+
+# Versiyon bilgisi
+show_version() {
+    echo "ti - Akıllı Pacman Wrapper v2.0"
+    echo "Arch Linux paket yöneticisi için geliştirilmiş arayüz"
+    echo ""
+    pacman --version
+}
+
+# Sudo gerekip gerekmediğini kontrol et
+needs_sudo() {
+    local first_arg="$1"
+    
+    # Yardım ve versiyon için sudo gerekmez
+    if [[ "$first_arg" == "--help" || "$first_arg" == "--version" || "$first_arg" == "-h" || "$first_arg" == "-v" ]]; then
+        return 1
+    fi
+    
+    # Sudo gerektirmeyen komutları kontrol et
+    for cmd in "${NO_SUDO_COMMANDS[@]}"; do
+        if [ "$first_arg" = "$cmd" ]; then
+            return 1  # sudo gerekmez
+        fi
+    done
+    
+    # -Sss (Arama) özel durumu
+    if [[ "$first_arg" == "-Sss" ]]; then
+        return 1
+    fi
+    
+    return 0  # sudo gerekir
+}
+
+# Özel durumlar için argüman kontrolü
+check_arguments() {
+    case "$1" in
+        "-S"|"-R"|"-Rns"|"-U"|"-Qi"|"-Ql"|"-Si"|"-Fl")
+            if [ $# -lt 2 ]; then
+                echo "Hata: '$1' seçeneği için paket adı gerekiyor"
+                return 1
+            fi
+            ;;
+    esac
+    return 0
+}
+
+# Ana program
+main() {
+    # Yardım istendiğinde
+    case "$1" in
+        "--help"|"-h")
+            show_help
+            return 0
+            ;;
+        "--version"|"-v")
+            show_version
+            return 0
+            ;;
+        "")
+            show_help
+            return 0
+            ;;
+    esac
+
+    # Argüman kontrolü
+    if ! check_arguments "$@"; then
+        return 1
+    fi
+
+    # Banner göster (sadece bazı komutlar için)
+    case "$1" in
+        "-Syu"|"-S"|"-R"|"-Rns"|"-Sc"|"-U")
+            echo "ti - Paket Yöneticisi"
+            echo "====================="
+            ;;
+    esac
+
+    # Aksiyon mesajını göster
+    print_action "$@"
+    echo ""
+
+    # Sudo gerekiyor mu?
+    if needs_sudo "$1"; then
+        # Özel onay isteme (opsiyonel - sadece kaldırma işlemleri için)
+        if [[ "$1" == "-Rns" || "$1" == "-Rsc" ]] && [ $# -ge 2 ]; then
+            echo "ONAY: Bu işlem paket(ler) ve bağımlılıklarını kaldıracak!"
+            read -p "Devam etmek istiyor musunuz? (y/N): " confirm
+            if [[ ! $confirm =~ ^[Yy]$ ]]; then
+                echo "İşlem iptal edildi."
+                return 0
+            fi
+            echo ""
+        fi
+        
+        # Sudo ile çalıştır
+        sudo pacman "$@"
+    else
+        # Sudo olmadan çalıştır
+        pacman "$@"
+    fi
+
+    # Başarı durumunu kontrol et
+    if [ $? -eq 0 ]; then
+        case "$1" in
+            "-Syu"|"-Suy")
+                echo ""
+                echo "Sistem güncellemesi başarıyla tamamlandı!"
+                ;;
+            "-S")
+                echo ""
+                echo "Kurulum başarıyla tamamlandı!"
+                ;;
+            "-R"|"-Rns")
+                echo ""
+                echo "Kaldırma işlemi başarıyla tamamlandı!"
+                ;;
+        esac
+    else
+        echo ""
+        echo "İşlem başarısız oldu!"
+    fi
+}
+
+# Script'i çalıştır
+main "$@"
