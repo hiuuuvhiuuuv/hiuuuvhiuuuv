@@ -1,32 +1,41 @@
-      
-sudo nano /etc/pacman.conf   ParallelDownloads = 8    monitor=DP-2,preferred,auto,1
+
+    
+sudo nano /etc/pacman.conf   ParallelDownloads = 8    monitor=DP-2,preferred,auto,1                   hiuuuvhiuuuv-ti      mdtcck8773
 
 nano ~/.config/hypr/hyprland.conf
 
 nano ~/.config/kitty/kitty.conf   background_opacity 0.40
 
- 
-sudo bootctl update 
- 
+  
+sudo bootctl update
+  
  
 /usr/lib/polkit-kde-authentication-agent-1 
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 
+sudo nano /etc/issue
+ti  live everyday like yourlast...  
 
- mkdir -p ~/.local/share/applications
- nano ~/.local/share/applications/archlinux.desktop
- [Desktop Entry]
-Name=archlinux-ti
-Exec=/home/kullanici_adiniz/bin/empty_app.sh
-Icon=applications-other
+
+
+sudo nano /usr/share/applications/placeholder.desktop
+[Desktop Entry]
+Version=1.0
 Type=Application
+Name=ti-ArchLinux
+Comment=Bu sadece bir placeholder
+Exec=/bin/true
+Icon=system-search
+Terminal=false
 Categories=Utility;
+NoDisplay=false
+
+
  
 
  
  mkdir -p ~/.config/waybar
- mkdir -p ~/.config/waybar/style.css
  nano ~/.config/waybar/style.css
  nano ~/.config/waybar/config
  
@@ -39,7 +48,7 @@ Categories=Utility;
 Version=1.0
 Name=ti
 Comment=Zen Browser
-Exec=flatpak run app.zen_browser.zen %U
+Exec=flatpak run --env=MOZ_ENABLE_WAYLAND=1 --env=QT_QPA_PLATFORM=wayland app.zen_browser.zen --enabl>
 Icon=app.zen_browser.zen
 Terminal=false
 Type=Application
@@ -47,11 +56,15 @@ Categories=Network;WebBrowser;
 StartupNotify=true
 
 update-desktop-database ~/.local/share/applications/
+rm -rf ~/.cache/zen/
+rm -rf ~/.config/zen/
 
 
 
 nano ~/.bashrc
 PS1='ti  live everyday like your last... '
+
+
 
 
 
@@ -62,20 +75,50 @@ flatpak update
 flatpak repair --user
 
 
+
+sudo nano /etc/systemd/journald.conf
+
+[Journal]
+Storage=persistent
+Compress=yes
+Seal=yes
+SystemMaxUse=100M
+SystemMaxFileSize=20M
+MaxRetentionSec=1month
+ForwardToSyslog=no
+
+sudo systemctl restart systemd-journald
+sudo journalctl --vacuum-size=80M
+sudo journalctl --vacuum-size=50M
+sudo journalctl --vacuum-time=1week
+
+
+
+
+
 sudo nano /boot/loader/entries/arch.conf
-title   ti
-linux   /vmlinuz-linux
-initrd  /initramfs-linux.img
-options root=UUID=eb934bc7-6ae0-4428-8fbe-19f1b4f06b3e rw quiet loglevel=0
+title ti
+linux /vmlinuz-linux
+initrd /intel-ucode.img
+initrd /initramfs-linux.img
+options root=UUID=b94a4fde-39a6-4923-9623-a8c4678df21b rw quiet systemd.show_status=plain rd.systemd.show_status=false
+
+
+
+sudo nano /boot/loader/loader.conf
+default arch.conf
+timeout 0
+console-mode max
+editor no
 
 
 
 
-p4fbk9ek2be6sc32        --GJgocWxGpb2          A:GJ99p9S$eN~DC                   fullscreen
+p4fbk9ek2be6sc32        --GJgocWxGpb2          A:GJ99p9S$eN~DC                   fullscreen                        hiuuuvhiuuuv      mdtcck8773
 
 
-yay -Sua         sudo pacman -Sc  yay -Yc   sudo pacman -Qtdq     sudo pacman -Rns $(pacman -Qtdq)
-
+yay -Syu      sudo pacman -Sc   yay -Yc    yay -Scc       sudo pacman -Rns $(pacman -Qtdq)
+                                                          sudo pacman -Qtdq     sudo pacman -Qdttq
 
 
 sudo pacman -S pacman-contrib
@@ -129,7 +172,8 @@ sudo pacman -S hyprutils hyprgraphics
 sudo pacman -S hyprland-qtutils
 sudo pacman -S nwg-displays nwg-look
 sudo pacman -S pavucontrol pipewire-alsa pipewire-audio
-sudo pacman -S mako polkit-gnome
+sudo pacman -S polkit-gnome
+sudo pacman -S polkit polkit-kde-agent
 sudo pacman -S archlinux-keyring intel-ucode
 sudo pacman -S flatpak 
 sudo pacman -S qt6-wayland qt5-wayland
@@ -139,6 +183,7 @@ sudo pacman -S qt5ct qt6ct
 sudo pacman -S gtk3 gtk4
 sudo pacman -S linux-firmware
 
+env = QT_QPA_PLATFORMTHEME,qt5ct
 
 
 repeat_delay = 500
@@ -147,17 +192,21 @@ numlock_by_default = true
 
 
 
+yay -S preload
+sudo systemctl enable preload
+sudo systemctl start preload
+sudo systemctl status preload
 
-yay -S gtk
+
+
+
 yay -S waypaper swaybg
 yay -S rose-pine-cursor
 yay -S rose-pine-hyprcursor
-yay -S preload
 yay -S zen-browser-bin
-yay -S google-chrome 
-
+yay -S google-chrome
  
-gnu mixxx pinta juk metindzenleyici usb shotwell bleachbit videolar flatseal indeks  karakutu
+ 
  
  
  VENTOY
@@ -170,34 +219,8 @@ gnu mixxx pinta juk metindzenleyici usb shotwell bleachbit videolar flatseal ind
  less PKGBUILD
  makepkg -sic
      
-     
- 
- 
- DUVAR      
- sudo pacman -S ufw
- sudo ufw default deny incoming
- sudo ufw default allow outgoing
- sudo ufw allow ssh
- sudo ufw enable
- sudo ufw status
     
-
  
- 
- FWUPD   
- sudo pacman -S fwupd
- sudo pacman -S fwupd-efi
- 
- sudo mkdir -p /boot/efi/EFI
- sudo systemctl restart fwupd.service
- 
- fwupdmgr get-devices
- fwupdmgr refresh
- fwupdmgr get-updates
- fwupdmgr update
- 
- 
-       
  
  WİFİ
        
@@ -210,6 +233,7 @@ gnu mixxx pinta juk metindzenleyici usb shotwell bleachbit videolar flatseal ind
        
        
      
+     
      WİRT MANAGER
       
       sudo pacman -S virt-manager qemu-desktop dnsmasq iptables-nft
@@ -217,7 +241,7 @@ gnu mixxx pinta juk metindzenleyici usb shotwell bleachbit videolar flatseal ind
       unix_sock_group = 'libvirt'
       unix_sock_rw_perms = '0770'
       
-      usermod -aG libvirt ti
+      usermod -a -G libvirt ti
       
       vim /etc/libvirt/qemu.conf
       user = "ti"
@@ -227,8 +251,21 @@ gnu mixxx pinta juk metindzenleyici usb shotwell bleachbit videolar flatseal ind
       
       sudo systemctl enable --now libvirtd
   
-
-
+      
+      sudo systemctl status libvirtd
+      sudo systemctl enable --now virtlogd
+      sudo virsh net-define /etc/libvirt/qemu/networks/default.xml
+      sudo virsh net-autostart default
+      sudo virsh net-start default
+      newgrp libvirt
+      logout/login
+      sudo systemctl status libvirtd
+      
+      
+      
+      
+      
+      
       Performance Powersave
  sudo  pacman -S cpupower
 
@@ -249,8 +286,34 @@ gnu mixxx pinta juk metindzenleyici usb shotwell bleachbit videolar flatseal ind
  sudo pacman -S thermald
  sudo systemctl enable --now thermald
 
-    
 
 
 
+UFW
+sudo pacman -S ufw
+sudo ufw enable
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+sudo systemctl enable ufw
+sudo systemctl start ufw
+sudo ufw status
+sudo ufw status verbose
+sudo ufw show added
 
+
+
+FWUPD
+sudo pacman -S fwupd
+fwupdmgr get-devices
+fwupdmgr refresh
+fwupdmgr get-updates
+sudo fwupdmgr update
+
+sudo systemctl enable fwupd
+sudo systemctl start fwupd
+
+# Firmware imza doğrulaması
+fwupdmgr security --force
+
+# Plugin durumu
+fwupdmgr get-plugins
